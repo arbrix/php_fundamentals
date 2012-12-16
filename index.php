@@ -8,7 +8,7 @@
     <meta name="author" content="Kutuzov Ivan">
 
     <!-- Le styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body {
             padding-top: 20px;
@@ -46,7 +46,7 @@
             margin-top: 28px;
         }
     </style>
-    <link href="/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -65,9 +65,9 @@
     <hr>
 
     <ul class="nav nav-pills">
-        <li><a href="/index.php?page=stat">Stat</a></li>
-        <li><a href="/index.php?page=user">User</a></li>
-        <li><a href="/index.php?page=task">Task</a></li>
+        <li><a id="firstLink" href="/index.php?page=stat">Stat</a></li>
+        <li><a id="secondLink" href="/index.php?page=user">User</a></li>
+        <li><a id="therdLink" href="/index.php?page=task">Task</a></li>
     </ul>
 
     <div class="row-fluid marketing">
@@ -112,7 +112,7 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

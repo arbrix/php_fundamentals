@@ -2,19 +2,21 @@
  
 class SampleFramework
 {
-    protected static $_mysqli;
+    protected static $_connect;
 
-    protected static function getDb()
+    protected static function initConnection()
     {
-        if (self::$_mysqli === null) {
-            self::$_mysqli = new mysqli("localhost", "vint", "vint", "vint");
+        if (self::$_connect === null) {
+            self::$_connect = mysql_connect("localhost", "vint", "vint");
+            mysql_query('use vint');
             /* Проверка подключения */ 
-            if (mysqli_connect_errno()) {
-                printf("Ошибка подключения: %s\n", mysqli_connect_error());
-                exit();
+            if (!self::$_connect) {
+                echo "Unable to connect to DB: " . mysql_error();
+                exit;
             }
+
         }
-        return self::$_mysqli;
+        return self::$_connect;
     }
 
     public static function hashPass($pass)
@@ -30,18 +32,25 @@ class SampleFramework
                 GROUP BY `user`.`id` 
                 ORDER BY task_count';
         
-        $db = self::getDb();
+        $dbLink = self::initConnection();
         $resultSet = array();
         /* Select queries return a resultset */
-        if ($result = $db->query($sql)) {
-            /* associative array */
-            while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        $result = mysql_query($sql);
+        if (!$result) {
+            echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+            exit;
+        }
+        if (mysql_num_rows($result) == 0) {
+            echo "No rows found, nothing to print so am exiting";
+            exit;
+        }
 
-                $resultSet[] = $row;
-            }
-            /* free result set */
-            $result->close();
-        } 
+        /* associative array */
+        while($row = mysql_fetch_assoc($result)) {
+            $resultSet[] = $row;
+        }
+        /* free result set */
+        mysql_free_result($result);
         return $resultSet;
 
     }
